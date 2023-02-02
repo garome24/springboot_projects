@@ -1,0 +1,40 @@
+package com.springboot.blog.service.impl;
+import com.springboot.blog.entity.Post;
+import com.springboot.blog.payload.PostDto;
+import com.springboot.blog.repository.PostRepository;
+import com.springboot.blog.service.PostService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+@Service
+public class PostServiceImpl implements PostService{
+
+    private PostRepository postRepository;
+
+    public PostServiceImpl(PostRepository postRepository) {
+        this.postRepository = postRepository;
+    }
+
+    @Override
+    public PostDto createPost(PostDto postDto){
+
+        // convert DTO to entity
+        Post post = new Post();
+        post.setTitle(post.getTitle());
+        post.setDescription(post.getDescription());
+        post.setContent(post.getContent());
+
+        Post newPost = postRepository.save(post);
+
+        // convert entity to DTO
+
+        PostDto postResponse = new PostDto();
+        postResponse.setId(post.getId());
+        postResponse.setTitle(post.getTitle());
+        postResponse.setDescription(post.getDescription());
+        postResponse.setContent(post.getContent());
+
+
+        return postResponse;
+    }
+}
